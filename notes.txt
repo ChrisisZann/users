@@ -1,0 +1,19 @@
+
+It indicates an ES6 module file.
+
+Node.js's original module system is CommonJs 
+(which uses require and module.exports).
+
+Since Node.js was created, the ECMAScript module system 
+(which uses import and export) has become standard and Node.js 
+has added support for it.
+
+Node.js will treat .cjs files as CommonJS modules and .mjs 
+files as ECMAScript modules. It will treat .js files as whatever 
+the default module system for the project is (which is CommonJS 
+unless package.json says "type": "module",).
+
+As a POST request, the parameters arrive 
+in the body of the request rather than as URL parameters.
+Because of the mapParams flag on the bodyParams handler, 
+the arguments passed in the HTTP body are added to req.params.
