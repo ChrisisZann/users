@@ -21,7 +21,7 @@ async function connectDB() {
             params.params);
     }
     if (!SQUser) {
-        SQUser = sequlz.define('User', {
+        SQUser = sequlz.define('user', {
             username: { type: Sequelize.STRING, unique: true },
             password: Sequelize.STRING,
             provider: Sequelize.STRING,

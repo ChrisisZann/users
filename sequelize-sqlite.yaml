@@ -1,6 +1,7 @@
-dbname: users
-usernaame:
-password:
+dbname: badguy
+host: localhost
+user: root
+password: io53_W77
 params:
-  dialect: sqlite
-  storage: users-sequelize.sqlite3
+  dialect: mysql
+  storage: users-sequelize.mysql
