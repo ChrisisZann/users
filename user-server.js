@@ -143,6 +143,13 @@ server.get('/list', async(req, res, next) => {
     }
 });
 
+server.get('/test', async(req, res, next) => {
+    res.send("This server is running");
+});
+
+// server.listen(process.env.PORT, function() {
+//     log(server.name + 'listening at ' + server.url);
+// });
 server.listen(process.env.PORT, "localhost", function() {
     log(server.name + 'listening at ' + server.url);
 });
