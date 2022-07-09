@@ -3,9 +3,10 @@
 import util from 'util';
 import restify from 'restify-clients';
 
+// console.log('http://localhost:' + process.env.PORT);
 
 var client = restify.createJSONClient({
-    url: 'http://localhost:3333',
+    url: 'http://localhost:' + process.env.PORT,
     version: '*'
 });
 
