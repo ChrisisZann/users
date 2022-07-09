@@ -25,6 +25,29 @@ server.use(restify.plugins.bodyParser({
 //Create a user record
 // As a POST request, the parameters arrive 
 // in the body of the request rather than as URL parameters.
+server.post('/create-user-v0', async(req, res, next) => {
+    try {
+        var result = await usersModel.create(
+            req.params.username,
+            req.params.password,
+            req.params.provider,
+            req.params.familyName,
+            req.params.givenName,
+            req.params.middleName,
+            req.params.emails,
+            req.params.photos
+        );
+        res.send(result);
+        next(false);
+    } catch (err) {
+        res.send(500, err);
+        next(false);
+    }
+});
+
+//Create a user record
+// As a POST request, the parameters arrive 
+// in the body of the request rather than as URL parameters.
 server.post('/create-user', async(req, res, next) => {
     try {
         var result = await usersModel.create(
@@ -146,6 +169,11 @@ server.get('/list', async(req, res, next) => {
 server.get('/test', async(req, res, next) => {
     res.send("This server is running");
 });
+server.get('/echo/:name', function(req, res, next) {
+    console.log('server says <lets go>');
+    res.send(req.params);
+    return next();
+});
 
 // server.listen(process.env.PORT, function() {
 //     log(server.name + 'listening at ' + server.url);
@@ -159,6 +187,8 @@ var apiKeys = [{
     user: 'them',
     key: 'D4ED43C0-8BD6-4FE2-BBBB-7C0E230D11EF'
 }];
+// http://them:D4ED43C0-8BD6-4FE2-BBBB-7C0E230D11EF@localhost:3366/test
+
 
 // The authorizationParser handler looks for this and 
 // gives it to us on the req.authorization.basic object. 
@@ -173,12 +203,23 @@ function check(req, res, next) {
     if (req.authorization) {
         var found = false;
         for (let auth of apiKeys) {
+            // debuggind
+            console.log("auth.key: " + auth.key);
+            console.log("req.authorization.basic.password: " + req.authorization.basic.password);
+            console.log("auth.user: " + auth.user);
+            console.log("req.authorization.basic.username: " + req.authorization.basic.username);
+
             if (auth.key === req.authorization.basic.password &&
                 auth.user === req.authorization.basic.username) {
                 found = true;
                 break;
             }
         }
+
+        console.log('finished checking authorization...');
+        // (found) ? console.log('Authorized!!!'): console.log('NOT Authorized!!!');;
+        console.log((found) ? 'Authorized!!!' : 'NOT Authorized!!!');
+
         if (found) next();
         else {
             res.send(401, new Error("Not authenticated"));

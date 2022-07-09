@@ -6,7 +6,7 @@ import restify from 'restify-clients';
 // console.log('http://localhost:' + process.env.PORT);
 
 var client = restify.createJSONClient({
-    url: 'http://localhost:' + process.env.PORT,
+    url: 'http://127.0.0.1:3366',
     version: '*'
 });
 
